@@ -1,6 +1,7 @@
 "use client";
 
 import { GoldDivider } from "./FloralOrnament";
+import Particles from "./Particles";
 
 const wishes = [
   { name: "Budi Santoso", msg: "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Barakallahu lakuma!", date: "10 Jun", badge: "hadir" },
@@ -13,6 +14,7 @@ const bl: Record<string,string> = { hadir: "Hadir", tidak_hadir: "Tidak Hadir", 
 export default function Wishes() {
   return (
     <section id="wishes" className="grad-main relative overflow-hidden geo-pattern">
+      <Particles count={15} />
       <div className="section-inner">
         <div className="text-center mb-14 reveal-up">
           <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-3 font-medium">Wishes</p>

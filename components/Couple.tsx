@@ -1,6 +1,7 @@
 "use client";
 
 import { LeafOrnamentTop, GoldDivider } from "./FloralOrnament";
+import Particles from "./Particles";
 
 function PersonCard({ name, fullName, parents, photoLabel }: {
   name: string; fullName: string; parents: string; photoLabel: string;
@@ -26,8 +27,9 @@ function PersonCard({ name, fullName, parents, photoLabel }: {
 
 export default function Couple() {
   return (
-    <section id="couple" className="grad-main relative overflow-hidden geo-pattern particles-gold">
-      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "140px 32px" }}>
+    <section id="couple" className="grad-main relative overflow-hidden geo-pattern">
+      <Particles count={20} />
+      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "140px 32px", position: "relative", zIndex: 2 }}>
 
         {/* Header */}
         <div className="reveal-up" style={{ textAlign: "center", marginBottom: "80px" }}>

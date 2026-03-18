@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { GoldDivider } from "./FloralOrnament";
+import Particles from "./Particles";
 
 function EventCard({ title, date, time, location, address, icon, delay }: {
   title: string; date: string; time: string; location: string; address: string; icon: React.ReactNode; delay: string;
@@ -32,62 +33,65 @@ export default function EventDetails() {
   const params = useSearchParams();
   const acara = params.get("acara"); // wanita | pria | pria-siang | pria-malam | null (semua)
 
-  const showWanita = !acara || acara === "wanita";
+  // Akad SELALU tampil. Resepsi wanita hanya untuk ?acara=wanita. Pria sesuai param.
+  const showResepsiWanita = !acara || acara === "wanita";
   const showPriaSiang = !acara || acara === "pria" || acara === "pria-siang";
   const showPriaMalam = !acara || acara === "pria" || acara === "pria-malam";
-  const showPriaSection = showPriaSiang || showPriaMalam;
+  const showPriaSection = !acara || acara === "pria" || acara === "pria-siang" || acara === "pria-malam";
 
   return (
     <section id="event" className="grad-main relative overflow-hidden geo-pattern">
-      <div className="section-inner">
+      <Particles count={18} />
+      <div style={{ maxWidth: "640px", margin: "0 auto", padding: "140px 32px", position: "relative", zIndex: 2 }}>
         {/* Header */}
-        <div className="text-center mb-16 reveal-up">
-          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-6 font-medium">When &amp; Where</p>
-          <h2 className="text-[var(--color-gold-light)] mb-4" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>
+        <div className="reveal-up" style={{ textAlign: "center", marginBottom: "64px" }}>
+          <p style={{ letterSpacing: "0.5em", textTransform: "uppercase", fontSize: "9px", fontWeight: 500, marginBottom: "24px", color: "var(--color-gold-dark)" }}>When &amp; Where</p>
+          <h2 style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)", marginBottom: "16px", color: "var(--color-gold-light)" }}>
             Jadwal Acara
           </h2>
           <GoldDivider />
         </div>
 
-        {/* ===== Rumah Wanita - 06 Juni 2026 ===== */}
-        {showWanita && (
-          <>
-            <div className="mb-10 reveal-up delay-1">
-              <p className="text-center text-[var(--color-gold)] text-[11px] tracking-[0.3em] uppercase font-medium">
-                Sabtu, 06 Juni 2026
-              </p>
-              <p className="text-center text-[var(--color-text-dim)] text-[10px] mt-1">Rumah Mempelai Wanita</p>
-            </div>
+        {/* ===== 06 Juni 2026 - Akad selalu tampil ===== */}
+        <div className="reveal-up delay-1" style={{ textAlign: "center", marginBottom: "40px" }}>
+          <p style={{ color: "var(--color-gold)", fontSize: "11px", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 500 }}>
+            Sabtu, 06 Juni 2026
+          </p>
+          <p style={{ color: "var(--color-text-dim)", fontSize: "10px", marginTop: "4px" }}>Rumah Mempelai Wanita</p>
+        </div>
 
-            <div className="space-y-10 mb-16">
-              <EventCard title="Akad Nikah" date="Sabtu, 06 Juni 2026" time="07.00 — 08.00 WIB"
-                location="Rumah Mempelai Wanita" address="Detail lokasi akan diinformasikan kemudian"
-                icon={IconAkad} delay="delay-2" />
-              <EventCard title="Resepsi" date="Sabtu, 06 Juni 2026" time="10.00 — 14.00 WIB"
-                location="Rumah Mempelai Wanita" address="Detail lokasi akan diinformasikan kemudian"
-                icon={IconLove} delay="delay-3" />
-            </div>
-          </>
-        )}
+        <div style={{ display: "flex", flexDirection: "column", gap: "40px", marginBottom: "64px" }}>
+          {/* Akad - SELALU tampil */}
+          <EventCard title="Akad Nikah" date="Sabtu, 06 Juni 2026" time="07.00 — 08.00 WIB"
+            location="Rumah Mempelai Wanita" address="Detail lokasi akan diinformasikan kemudian"
+            icon={IconAkad} delay="delay-2" />
 
-        {/* ===== Separator (kalau tampil dua-duanya) ===== */}
-        {showWanita && showPriaSection && (
-          <div className="mb-16 reveal-up delay-4">
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--color-gold-dark)] to-transparent opacity-20" />
+          {/* Resepsi wanita - hanya untuk undangan wanita atau tanpa param */}
+          {showResepsiWanita && (
+            <EventCard title="Resepsi" date="Sabtu, 06 Juni 2026" time="10.00 — 14.00 WIB"
+              location="Rumah Mempelai Wanita" address="Detail lokasi akan diinformasikan kemudian"
+              icon={IconLove} delay="delay-3" />
+          )}
+        </div>
+
+        {/* ===== Separator ===== */}
+        {showPriaSection && (
+          <div className="reveal-up delay-4" style={{ marginBottom: "64px" }}>
+            <div style={{ width: "100%", height: "1px", background: "linear-gradient(to right, transparent, var(--color-gold-dark), transparent)", opacity: 0.2 }} />
           </div>
         )}
 
-        {/* ===== Rumah Pria - 07 Juni 2026 ===== */}
+        {/* ===== 07 Juni 2026 - Pria ===== */}
         {showPriaSection && (
           <>
-            <div className="mb-10 reveal-up delay-4">
-              <p className="text-center text-[var(--color-gold)] text-[11px] tracking-[0.3em] uppercase font-medium">
+            <div className="reveal-up delay-4" style={{ textAlign: "center", marginBottom: "40px" }}>
+              <p style={{ color: "var(--color-gold)", fontSize: "11px", letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 500 }}>
                 Minggu, 07 Juni 2026
               </p>
-              <p className="text-center text-[var(--color-text-dim)] text-[10px] mt-1">Ngunduh Mantu — Rumah Mempelai Pria</p>
+              <p style={{ color: "var(--color-text-dim)", fontSize: "10px", marginTop: "4px" }}>Ngunduh Mantu — Rumah Mempelai Pria</p>
             </div>
 
-            <div className="space-y-10 mb-16">
+            <div style={{ display: "flex", flexDirection: "column", gap: "40px", marginBottom: "64px" }}>
               <EventCard title="Ngunduh Mantu" date="Minggu, 07 Juni 2026" time="07.00 — 10.00 WIB"
                 location="Rumah Mempelai Pria" address="Detail lokasi akan diinformasikan kemudian"
                 icon={IconHome} delay="delay-5" />

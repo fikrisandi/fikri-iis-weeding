@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { GoldDivider, GeometricFrame } from "./FloralOrnament";
+import Particles from "./Particles";
 
 export default function RSVP() {
   const [form, setForm] = useState({ name: "", attendance: "hadir", guests: "1", message: "" });
@@ -19,6 +20,7 @@ export default function RSVP() {
 
   return (
     <section id="rsvp" className="grad-alt relative overflow-hidden">
+      <Particles count={15} />
       <div className="absolute inset-0 geo-pattern" />
       <div className="section-inner relative z-10">
         <div className="text-center mb-14 reveal-up">

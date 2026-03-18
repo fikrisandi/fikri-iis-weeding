@@ -1,10 +1,12 @@
 "use client";
 
 import { LeafOrnamentTop, GoldDivider } from "./FloralOrnament";
+import Particles from "./Particles";
 
 export default function Footer() {
   return (
     <footer className="grad-cover relative overflow-hidden text-center">
+      <Particles count={12} />
       <div className="absolute inset-0 geo-pattern opacity-50" />
       <div className="section-inner relative z-10" style={{ paddingBottom: "50px" }}>
         <div className="reveal-up max-w-md mx-auto">
