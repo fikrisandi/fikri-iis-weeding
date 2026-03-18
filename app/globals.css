@@ -193,3 +193,30 @@ body.no-scroll { overflow: hidden; }
   background-size: 80px 140px;
   background-position: 0 0, 0 0, 40px 70px, 40px 70px;
 }
+
+/* ===== SECTION TRANSITIONS ===== */
+.section-fade-top::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to bottom, var(--color-emerald-deep), transparent);
+  z-index: 1; pointer-events: none;
+}
+.section-fade-bottom::after {
+  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to top, var(--color-emerald-deep), transparent);
+  z-index: 1; pointer-events: none;
+}
+
+/* ===== FLOATING PARTICLES for all sections ===== */
+.particles-gold::before, .particles-gold::after {
+  content: "✦"; position: absolute; color: var(--color-gold); opacity: 0.06;
+  font-size: 14px; pointer-events: none;
+  animation: drift-up 8s ease-out infinite;
+}
+.particles-gold::before { top: 30%; left: 10%; animation-delay: 0s; }
+.particles-gold::after { top: 60%; right: 10%; animation-delay: 4s; }
+
+/* Photo tilt */
+.photo-tilt-left { transform: rotate(-3deg); transition: transform 0.5s ease; }
+.photo-tilt-left:hover { transform: rotate(0deg) scale(1.03); }
+.photo-tilt-right { transform: rotate(3deg); transition: transform 0.5s ease; }
+.photo-tilt-right:hover { transform: rotate(0deg) scale(1.03); }

@@ -15,34 +15,32 @@ export default function Countdown() {
   const blocks = [{ v: t.d, l: "Hari" }, { v: t.h, l: "Jam" }, { v: t.m, l: "Menit" }, { v: t.s, l: "Detik" }];
 
   return (
-    <section className="grad-alt relative overflow-hidden">
+    <section className="grad-alt relative overflow-hidden particles-gold">
       <div className="absolute inset-0 geo-pattern" />
-      <div className="text-center relative z-10" style={{ maxWidth: "640px", margin: "0 auto", padding: "120px 32px" }}>
-        {/* Header */}
-        <div className="reveal-up mb-16">
-          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-6 font-medium">Save The Date</p>
-          <h2 className="text-[var(--color-gold-light)] mb-6" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>
+      <div style={{ maxWidth: "640px", margin: "0 auto", padding: "140px 32px", textAlign: "center", position: "relative", zIndex: 10 }}>
+
+        <div className="reveal-up" style={{ marginBottom: "64px" }}>
+          <p className="text-[var(--color-gold-dark)]" style={{ letterSpacing: "0.5em", textTransform: "uppercase" as const, fontSize: "9px", fontWeight: 500, marginBottom: "24px" }}>Save The Date</p>
+          <h2 className="text-[var(--color-gold-light)]" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)", marginBottom: "24px" }}>
             Menuju Hari Bahagia
           </h2>
           <GoldDivider />
         </div>
 
-        {/* Timer blocks */}
-        <div className="flex justify-center gap-4 md:gap-6 mb-16">
+        <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginBottom: "64px" }}>
           {blocks.map((b, i) => (
             <div key={b.l} className={`reveal-scale delay-${i+2}`}>
-              <div className="glass-gold rounded-2xl w-[74px] h-[84px] md:w-[92px] md:h-[102px] flex items-center justify-center">
+              <div className="glass-gold" style={{ borderRadius: "16px", width: "80px", height: "90px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span className="text-[var(--color-gold-light)]"
                   style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.8rem, 5vw, 2.4rem)", fontWeight: 300 }}>
                   {String(b.v).padStart(2, "0")}
                 </span>
               </div>
-              <p className="mt-4 text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase font-medium">{b.l}</p>
+              <p className="text-[var(--color-text-muted)]" style={{ marginTop: "16px", fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase" as const, fontWeight: 500 }}>{b.l}</p>
             </div>
           ))}
         </div>
 
-        {/* Calendar button */}
         <div className="reveal-up delay-7">
           <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Fikri+%26+Iis&dates=20260606T010000Z/20260606T070000Z"
             target="_blank" rel="noopener noreferrer" className="btn-outline">
