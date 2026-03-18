@@ -18,28 +18,31 @@ export default function Countdown() {
     <section className="grad-alt relative overflow-hidden">
       <div className="absolute inset-0 geo-pattern" />
       <div className="section-inner text-center relative z-10">
-        <div className="reveal-up">
-          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-3 font-medium">Save The Date</p>
-          <h2 className="text-[var(--color-gold-light)] mb-2" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>
+        {/* Header */}
+        <div className="reveal-up mb-14">
+          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-4 font-medium">Save The Date</p>
+          <h2 className="text-[var(--color-gold-light)] mb-4" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>
             Menuju Hari Bahagia
           </h2>
           <GoldDivider />
         </div>
 
-        <div className="flex justify-center gap-3 md:gap-5 my-12">
+        {/* Timer blocks */}
+        <div className="flex justify-center gap-4 md:gap-6 mb-14">
           {blocks.map((b, i) => (
             <div key={b.l} className={`reveal-scale delay-${i+2}`}>
-              <div className="glass-gold w-[72px] h-[82px] md:w-[88px] md:h-[98px] flex items-center justify-center">
+              <div className="glass-gold rounded-2xl w-[74px] h-[84px] md:w-[92px] md:h-[102px] flex items-center justify-center">
                 <span className="text-[var(--color-gold-light)]"
                   style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.8rem, 5vw, 2.4rem)", fontWeight: 300 }}>
                   {String(b.v).padStart(2, "0")}
                 </span>
               </div>
-              <p className="mt-3 text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase font-medium">{b.l}</p>
+              <p className="mt-4 text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase font-medium">{b.l}</p>
             </div>
           ))}
         </div>
 
+        {/* Calendar button */}
         <div className="reveal-up delay-7">
           <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Fikri+%26+Iis&dates=20260606T010000Z/20260606T070000Z"
             target="_blank" rel="noopener noreferrer" className="btn-outline">

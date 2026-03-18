@@ -5,14 +5,12 @@ import { GoldDivider } from "./FloralOrnament";
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden grad-cover">
-      {/* BG photo overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-center bg-cover opacity-15" style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(4,30,22,0.5), rgba(10,61,46,0.2) 50%, rgba(4,30,22,0.85))" }} />
       </div>
       <div className="absolute inset-0 geo-pattern opacity-50" />
 
-      {/* Floating leaves */}
       {[...Array(6)].map((_, i) => (
         <div key={i} className="absolute pointer-events-none text-[var(--color-mint)]"
           style={{ left: `${8+i*15}%`, fontSize: `${9+(i%3)*3}px`, opacity: 0.08,
@@ -20,8 +18,10 @@ export default function Hero() {
       ))}
 
       <div className="relative z-10 text-center px-8 max-w-lg mx-auto">
-        <div className="reveal-up">
-          <p className="text-[var(--color-gold-light)] mb-4" style={{ fontFamily: "var(--font-display)", fontSize: "24px", fontStyle: "italic" }}>
+        {/* Bismillah */}
+        <div className="reveal-up mb-10">
+          <p className="text-[var(--color-gold-light)] mb-5"
+            style={{ fontFamily: "var(--font-display)", fontSize: "24px", fontStyle: "italic" }}>
             بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
           </p>
           <p className="text-[var(--color-text-muted)] text-[9px] tracking-[0.4em] uppercase">
@@ -29,23 +29,26 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="reveal-up delay-2 my-12">
-          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-6 font-medium">The Wedding Of</p>
+        {/* Names */}
+        <div className="reveal-up delay-2 mb-12">
+          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-8 font-medium">The Wedding Of</p>
           <h1 className="text-[var(--color-cream)] leading-[1.05]"
             style={{ fontFamily: "var(--font-script)", fontSize: "clamp(3.5rem, 12vw, 6rem)", textShadow: "0 4px 40px rgba(0,0,0,0.3)" }}>
             Fikri <span className="text-[var(--color-gold)]">&amp;</span> Iis
           </h1>
         </div>
 
+        {/* Date */}
         <div className="reveal-up delay-4">
-          <GoldDivider />
-          <p className="text-[var(--color-gold-light)] tracking-[0.25em] mt-2"
+          <GoldDivider className="mb-6" />
+          <p className="text-[var(--color-gold-light)] tracking-[0.25em]"
             style={{ fontFamily: "var(--font-display)", fontSize: "16px", fontWeight: 300 }}>
             Sabtu, 06 Juni 2026
           </p>
         </div>
 
-        <div className="reveal-up delay-6 absolute bottom-10 left-1/2 -translate-x-1/2 opacity-40">
+        {/* Scroll */}
+        <div className="reveal-up delay-6 absolute bottom-12 left-1/2 -translate-x-1/2 opacity-40">
           <div className="w-[1px] h-10 bg-gradient-to-b from-[var(--color-gold-dark)] to-transparent mx-auto" />
         </div>
       </div>
