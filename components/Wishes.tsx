@@ -1,87 +1,44 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { GoldDivider } from "./FloralOrnament";
 
-interface Wish {
-  name: string;
-  message: string;
-  timestamp: string;
-}
+const wishes = [
+  { name: "Budi Santoso", msg: "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Barakallahu lakuma!", date: "10 Jun", badge: "hadir" },
+  { name: "Siti Rahayu", msg: "Barakallahu lakuma wa baraka 'alaikuma. Selamat menempuh hidup baru!", date: "09 Jun", badge: "hadir" },
+  { name: "Andi Pratama", msg: "Semoga Allah memberkahi pernikahan kalian. Bahagia selalu dunia akhirat.", date: "08 Jun", badge: "mungkin" },
+];
+const bc: Record<string,string> = { hadir: "#4A9E6B", tidak_hadir: "#D44", mungkin: "#D4A853" };
+const bl: Record<string,string> = { hadir: "Hadir", tidak_hadir: "Tidak Hadir", mungkin: "Ragu" };
 
 export default function Wishes() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [wishes] = useState<Wish[]>([
-    {
-      name: "Budi Santoso",
-      message: "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Barakallahu lakuma! Aamiin.",
-      timestamp: "10 Jun 2025",
-    },
-    {
-      name: "Siti Rahayu",
-      message: "Barakallahu lakuma wa baraka 'alaikuma. Selamat menempuh hidup baru ya!",
-      timestamp: "09 Jun 2025",
-    },
-    {
-      name: "Andi Pratama",
-      message: "Semoga Allah memberkahi pernikahan kalian. Semoga selalu bahagia dunia akhirat.",
-      timestamp: "08 Jun 2025",
-    },
-  ]);
-
   return (
-    <section id="wishes" className="bg-[var(--color-cream)] py-24">
-      <div className="max-w-3xl mx-auto px-6" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-14"
-        >
-          <p className="text-[var(--color-gold)] tracking-[0.4em] uppercase text-xs mb-3">
-            Wishes
-          </p>
-          <h2
-            className="text-4xl md:text-5xl text-[var(--color-primary)] mb-4"
-            style={{ fontFamily: "var(--font-script)" }}
-          >
-            Ucapan &amp; Doa
-          </h2>
-          <div className="ornament">
-            <span className="text-[var(--color-gold)] text-xs">&#10022;</span>
-          </div>
-        </motion.div>
+    <section id="wishes" className="grad-main relative overflow-hidden geo-pattern">
+      <div className="section-inner">
+        <div className="text-center mb-14 reveal-up">
+          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-3 font-medium">Wishes</p>
+          <h2 className="text-[var(--color-gold-light)] mb-2" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>Ucapan &amp; Doa</h2>
+          <GoldDivider />
+        </div>
 
-        <div className="max-w-lg mx-auto space-y-4 max-h-[500px] overflow-y-auto pr-2">
-          {wishes.map((wish, i) => (
-            <motion.div
-              key={`${wish.name}-${i}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
-              className="bg-white p-6 border border-[var(--color-cream-dark)] shadow-sm"
-            >
+        <div className="max-w-md mx-auto space-y-4 max-h-[500px] overflow-y-auto pr-1">
+          {wishes.map((w, i) => (
+            <div key={i} className={`glass p-6 reveal-up delay-${i+1}`}>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-full bg-[var(--color-primary-dark)] flex items-center justify-center text-[var(--color-gold-light)] text-sm font-medium"
-                  style={{ fontFamily: "var(--font-serif)" }}
-                >
-                  {wish.name.charAt(0)}
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--color-emerald-deep)] text-[13px] font-medium shrink-0"
+                  style={{ fontFamily: "var(--font-display)", background: "linear-gradient(135deg, var(--color-gold), var(--color-gold-dark))" }}>
+                  {w.name.charAt(0)}
                 </div>
-                <div>
-                  <h4
-                    className="text-[var(--color-primary)] font-medium text-sm"
-                    style={{ fontFamily: "var(--font-serif)", fontSize: "1rem" }}
-                  >
-                    {wish.name}
-                  </h4>
-                  <span className="text-[10px] text-[var(--color-text-light)]">{wish.timestamp}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h4 className="text-[var(--color-cream)] text-[13px] font-medium truncate" style={{ fontFamily: "var(--font-display)" }}>{w.name}</h4>
+                    <span className="shrink-0 text-[7px] tracking-wider uppercase px-2 py-[2px] rounded-full text-white font-medium"
+                      style={{ background: bc[w.badge] }}>{bl[w.badge]}</span>
+                  </div>
+                  <span className="text-[var(--color-text-dim)] text-[10px]">{w.date}</span>
                 </div>
               </div>
-              <p className="text-[var(--color-text-light)] text-sm leading-relaxed pl-12">
-                {wish.message}
-              </p>
-            </motion.div>
+              <p className="text-[var(--color-text-light)] text-[12px] leading-[1.9] pl-12">{w.msg}</p>
+            </div>
           ))}
         </div>
       </div>

@@ -1,162 +1,74 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { GoldDivider, GeometricFrame } from "./FloralOrnament";
 
 export default function RSVP() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const [formData, setFormData] = useState({ name: "", attendance: "hadir", guests: "1", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "", attendance: "hadir", guests: "1", message: "" });
+  const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault(); setLoading(true);
     try {
-      const SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
-      if (SCRIPT_URL) {
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ type: "rsvp", ...formData }),
-        });
-      }
-      setSubmitted(true);
-    } catch {
-      setSubmitted(true);
-    } finally {
-      setLoading(false);
-    }
+      const url = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
+      if (url) await fetch(url, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "rsvp", ...form }) });
+      setDone(true);
+    } catch { setDone(true); } finally { setLoading(false); }
   };
 
   return (
-    <section id="rsvp" className="relative bg-white py-24 overflow-hidden">
-      {/* Corner ornaments */}
-      <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[var(--color-gold)] opacity-15 m-4" />
-      <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-[var(--color-gold)] opacity-15 m-4" />
-
-      <div className="max-w-3xl mx-auto px-6" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-14"
-        >
-          <p className="text-[var(--color-gold)] tracking-[0.4em] uppercase text-xs mb-3">
-            Attendance
+    <section id="rsvp" className="grad-alt relative overflow-hidden">
+      <div className="absolute inset-0 geo-pattern" />
+      <div className="section-inner relative z-10">
+        <div className="text-center mb-14 reveal-up">
+          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-3 font-medium">RSVP</p>
+          <h2 className="text-[var(--color-gold-light)] mb-2" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>Konfirmasi Kehadiran</h2>
+          <GoldDivider />
+          <p className="text-[var(--color-text-muted)] max-w-sm mx-auto text-[12px] leading-[2] mt-4">
+            Mohon konfirmasi kehadiran dan tinggalkan ucapan serta doa untuk kedua mempelai.
           </p>
-          <h2
-            className="text-4xl md:text-5xl text-[var(--color-primary)] mb-4"
-            style={{ fontFamily: "var(--font-script)" }}
-          >
-            Konfirmasi Kehadiran
-          </h2>
-          <div className="ornament mb-4">
-            <span className="text-[var(--color-gold)] text-xs">&#10022;</span>
-          </div>
-          <p className="text-[var(--color-text-light)] text-sm max-w-md mx-auto">
-            Mohon konfirmasi kehadiran Anda. Anda juga dapat meninggalkan ucapan dan doa untuk kedua mempelai.
-          </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="max-w-md mx-auto"
-        >
-          {submitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-16 bg-[var(--color-cream)] border border-[var(--color-cream-dark)]"
-            >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--color-primary)] flex items-center justify-center">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold-light)" strokeWidth="2">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+        <GeometricFrame className="glass p-8 md:p-10 max-w-md mx-auto reveal-up delay-2">
+          {done ? (
+            <div className="text-center py-10" style={{ animation: "fade-in 0.5s ease" }}>
+              <div className="w-16 h-16 mx-auto mb-5 rounded-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, var(--color-mint-dark), var(--color-mint))" }}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <p className="text-3xl text-[var(--color-gold)] mb-2" style={{ fontFamily: "var(--font-script)" }}>
-                Terima Kasih
-              </p>
-              <p className="text-[var(--color-text-light)] text-sm">
-                Konfirmasi dan ucapan Anda telah kami terima
-              </p>
-            </motion.div>
+              <p className="shimmer-gold text-[2rem] mb-2" style={{ fontFamily: "var(--font-script)" }}>Terima Kasih</p>
+              <p className="text-[var(--color-text-muted)] text-[12px]">Konfirmasi dan ucapan Anda telah kami terima</p>
+            </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={submit} className="space-y-5">
               <div>
-                <label className="block text-[10px] text-[var(--color-text-light)] mb-2 tracking-[0.2em] uppercase">
-                  Nama Lengkap
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3.5 border border-[var(--color-cream-dark)] bg-[var(--color-cream)] text-[var(--color-text)] text-sm focus:border-[var(--color-gold)] focus:outline-none transition-colors"
-                  placeholder="Masukkan nama Anda"
-                />
+                <label className="block text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase mb-3 font-medium">Nama Lengkap</label>
+                <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="input-field" placeholder="Masukkan nama Anda" />
               </div>
-
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] text-[var(--color-text-light)] mb-2 tracking-[0.2em] uppercase">
-                    Kehadiran
-                  </label>
-                  <select
-                    value={formData.attendance}
-                    onChange={(e) => setFormData({ ...formData, attendance: e.target.value })}
-                    className="w-full px-4 py-3.5 border border-[var(--color-cream-dark)] bg-[var(--color-cream)] text-[var(--color-text)] text-sm focus:border-[var(--color-gold)] focus:outline-none transition-colors"
-                  >
-                    <option value="hadir">Hadir</option>
-                    <option value="tidak_hadir">Tidak Hadir</option>
-                    <option value="mungkin">Masih Ragu</option>
+                  <label className="block text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase mb-3 font-medium">Kehadiran</label>
+                  <select value={form.attendance} onChange={e => setForm({...form, attendance: e.target.value})} className="input-field">
+                    <option value="hadir">Hadir</option><option value="tidak_hadir">Tidak Hadir</option><option value="mungkin">Masih Ragu</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] text-[var(--color-text-light)] mb-2 tracking-[0.2em] uppercase">
-                    Jumlah Tamu
-                  </label>
-                  <select
-                    value={formData.guests}
-                    onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                    className="w-full px-4 py-3.5 border border-[var(--color-cream-dark)] bg-[var(--color-cream)] text-[var(--color-text)] text-sm focus:border-[var(--color-gold)] focus:outline-none transition-colors"
-                  >
-                    <option value="1">1 Orang</option>
-                    <option value="2">2 Orang</option>
-                    <option value="3">3 Orang</option>
-                    <option value="4">4 Orang</option>
-                    <option value="5">5 Orang</option>
+                  <label className="block text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase mb-3 font-medium">Jumlah Tamu</label>
+                  <select value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} className="input-field">
+                    {[1,2,3,4,5].map(n => <option key={n} value={String(n)}>{n} Orang</option>)}
                   </select>
                 </div>
               </div>
-
               <div>
-                <label className="block text-[10px] text-[var(--color-text-light)] mb-2 tracking-[0.2em] uppercase">
-                  Ucapan &amp; Doa
-                </label>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={4}
-                  className="w-full px-4 py-3.5 border border-[var(--color-cream-dark)] bg-[var(--color-cream)] text-[var(--color-text)] text-sm focus:border-[var(--color-gold)] focus:outline-none transition-colors resize-none"
-                  placeholder="Tulis ucapan dan doa untuk kedua mempelai..."
-                />
+                <label className="block text-[var(--color-text-muted)] text-[9px] tracking-[0.2em] uppercase mb-3 font-medium">Ucapan &amp; Doa</label>
+                <textarea value={form.message} onChange={e => setForm({...form, message: e.target.value})} rows={4} className="input-field resize-none" placeholder="Tulis ucapan dan doa..." />
               </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-[var(--color-primary-dark)] text-[var(--color-gold-light)] px-8 py-4 text-xs tracking-[0.25em] uppercase hover:bg-[var(--color-primary)] transition-all duration-300 disabled:opacity-50"
-              >
+              <button type="submit" disabled={loading} className="btn-gold w-full disabled:opacity-40">
                 {loading ? "Mengirim..." : "Kirim Konfirmasi & Ucapan"}
               </button>
             </form>
           )}
-        </motion.div>
+        </GeometricFrame>
       </div>
     </section>
   );

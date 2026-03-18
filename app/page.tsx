@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useReveal } from "../components/useReveal";
 import Cover from "../components/Cover";
 import Hero from "../components/Hero";
 import Couple from "../components/Couple";
@@ -15,6 +16,7 @@ import Footer from "../components/Footer";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  useReveal();
 
   return (
     <>
