@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useReveal } from "../components/useReveal";
 import Cover from "../components/Cover";
 import Hero from "../components/Hero";
@@ -25,7 +25,9 @@ export default function Home() {
         <Hero />
         <Couple />
         <Countdown />
-        <EventDetails />
+        <Suspense>
+          <EventDetails />
+        </Suspense>
         <Gallery />
         <Gift />
         <RSVP />
