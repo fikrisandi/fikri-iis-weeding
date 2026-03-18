@@ -34,10 +34,68 @@ export default function Cover({ onOpen }: { onOpen: () => void }) {
         </div>
       ))}
 
-      {/* Decorative circles */}
+      {/* Animated decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-15%] left-[-10%] w-[400px] h-[400px] rounded-full border border-[rgba(212,168,83,0.06)]" />
-        <div className="absolute bottom-[-20%] right-[-15%] w-[500px] h-[500px] rounded-full border border-[rgba(168,213,186,0.05)]" />
+        {/* Slow orbiting circles */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px]"
+          style={{ animation: "orbit 60s linear infinite" }}>
+          <div className="absolute top-0 left-1/2 w-[8px] h-[8px] rounded-full bg-[var(--color-gold)] opacity-[0.12]" />
+          <div className="absolute bottom-[10%] right-0 w-[5px] h-[5px] rounded-full bg-[var(--color-mint)] opacity-[0.08]" />
+        </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px]"
+          style={{ animation: "orbit-reverse 80s linear infinite" }}>
+          <div className="absolute top-[5%] right-[10%] w-[6px] h-[6px] rounded-full bg-[var(--color-gold-light)] opacity-[0.1]" />
+          <div className="absolute bottom-0 left-[20%] w-[4px] h-[4px] rounded-full bg-[var(--color-gold)] opacity-[0.08]" />
+        </div>
+
+        {/* Rotating ring borders */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[rgba(212,168,83,0.06)]"
+          style={{ animation: "orbit 90s linear infinite" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full border border-[rgba(168,213,186,0.04)]"
+          style={{ animation: "orbit-reverse 120s linear infinite" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-dashed border-[rgba(212,168,83,0.03)]"
+          style={{ animation: "orbit 150s linear infinite" }} />
+
+        {/* Glowing sparkle dots */}
+        {[...Array(8)].map((_, i) => (
+          <div key={`sparkle-${i}`}
+            className="absolute w-[3px] h-[3px] rounded-full bg-[var(--color-gold-light)]"
+            style={{
+              top: `${15 + (i * 11) % 70}%`,
+              left: `${10 + (i * 13) % 80}%`,
+              animation: `glow-dot ${3 + i * 0.7}s ease-in-out infinite`,
+              animationDelay: `${i * 0.5}s`,
+            }}
+          />
+        ))}
+
+        {/* Rising particles */}
+        {[...Array(5)].map((_, i) => (
+          <div key={`rise-${i}`}
+            className="absolute w-[2px] h-[2px] rounded-full bg-[var(--color-gold)]"
+            style={{
+              bottom: "20%",
+              left: `${20 + i * 15}%`,
+              animation: `drift-up ${4 + i}s ease-out infinite`,
+              animationDelay: `${i * 1.2}s`,
+            }}
+          />
+        ))}
+
+        {/* Subtle light rays from center */}
+        {[...Array(4)].map((_, i) => (
+          <div key={`ray-${i}`}
+            className="absolute top-1/2 left-1/2 origin-bottom"
+            style={{
+              width: "1px",
+              height: "200px",
+              background: "linear-gradient(to top, rgba(212,168,83,0.08), transparent)",
+              transform: `translate(-50%, -100%) rotate(${i * 90 + 45}deg)`,
+              animation: `light-ray ${6 + i * 2}s ease-in-out infinite`,
+              animationDelay: `${i * 1.5}s`,
+            }}
+          />
+        ))}
       </div>
 
       <div className="relative z-10 text-center px-8 max-w-sm">
