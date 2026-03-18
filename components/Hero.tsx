@@ -17,7 +17,7 @@ export default function Hero() {
             animation: `float-leaf ${9+i*2}s linear infinite`, animationDelay: `${i*1.2}s` }}>&#127811;</div>
       ))}
 
-      <div className="relative z-10 text-center px-8 max-w-lg mx-auto">
+      <div className="relative z-10 text-center px-8 py-24 max-w-lg mx-auto">
         {/* Bismillah */}
         <div className="reveal-up mb-16">
           <p className="text-[var(--color-gold-light)] mb-8"

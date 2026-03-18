@@ -17,18 +17,18 @@ export default function Countdown() {
   return (
     <section className="grad-alt relative overflow-hidden">
       <div className="absolute inset-0 geo-pattern" />
-      <div className="section-inner text-center relative z-10">
+      <div className="text-center relative z-10" style={{ maxWidth: "640px", margin: "0 auto", padding: "120px 32px" }}>
         {/* Header */}
-        <div className="reveal-up mb-14">
-          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-4 font-medium">Save The Date</p>
-          <h2 className="text-[var(--color-gold-light)] mb-4" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>
+        <div className="reveal-up mb-16">
+          <p className="text-[var(--color-gold-dark)] tracking-[0.5em] uppercase text-[9px] mb-6 font-medium">Save The Date</p>
+          <h2 className="text-[var(--color-gold-light)] mb-6" style={{ fontFamily: "var(--font-script)", fontSize: "clamp(2.2rem, 7vw, 3rem)" }}>
             Menuju Hari Bahagia
           </h2>
           <GoldDivider />
         </div>
 
         {/* Timer blocks */}
-        <div className="flex justify-center gap-4 md:gap-6 mb-14">
+        <div className="flex justify-center gap-4 md:gap-6 mb-16">
           {blocks.map((b, i) => (
             <div key={b.l} className={`reveal-scale delay-${i+2}`}>
               <div className="glass-gold rounded-2xl w-[74px] h-[84px] md:w-[92px] md:h-[102px] flex items-center justify-center">

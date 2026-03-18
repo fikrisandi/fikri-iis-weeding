@@ -71,9 +71,9 @@ body.no-scroll { overflow: hidden; }
 .section-inner {
   max-width: 640px;
   margin: 0 auto;
-  padding: 100px 32px;
+  padding: 120px 32px;
 }
-@media (max-width: 480px) { .section-inner { padding: 80px 22px; } }
+@media (max-width: 480px) { .section-inner { padding: 96px 22px; } }
 
 /* ===== ORNAMENT ===== */
 .ornament-line {
