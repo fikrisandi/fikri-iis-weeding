@@ -63,16 +63,37 @@ export default function EventDetails() {
         <div style={{ display: "flex", flexDirection: "column", gap: "40px", marginBottom: "64px" }}>
           {/* Akad - SELALU tampil */}
           <EventCard title="Akad Nikah" date="Sabtu, 06 Juni 2026" time="07.00 — 08.00 WIB"
-            location="Rumah Mempelai Wanita" address="Detail lokasi akan diinformasikan kemudian"
+            location="Rumah Mempelai Wanita"
+            address="Jl. Kapten Dulasim Gang 7A No. 7, Kec. Kebomas, Kab. Gresik"
             icon={IconAkad} delay="delay-2" />
 
-          {/* Resepsi wanita - hanya untuk undangan wanita atau tanpa param */}
           {showResepsiWanita && (
             <EventCard title="Resepsi" date="Sabtu, 06 Juni 2026" time="10.00 — 14.00 WIB"
-              location="Rumah Mempelai Wanita" address="Detail lokasi akan diinformasikan kemudian"
+              location="Rumah Mempelai Wanita"
+              address="Jl. Kapten Dulasim Gang 7A No. 7, Kec. Kebomas, Kab. Gresik"
               icon={IconLove} delay="delay-3" />
           )}
         </div>
+
+        {/* Maps Wanita */}
+        {showResepsiWanita && (
+          <div className="reveal-up delay-3" style={{ marginBottom: "64px" }}>
+            <div className="glass rounded-3xl p-3 overflow-hidden" style={{ marginBottom: "24px" }}>
+              <iframe
+                src="https://www.google.com/maps?q=-7.172046,112.656555&z=17&output=embed"
+                width="100%" height="220" style={{ border: 0, borderRadius: "20px" }}
+                allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <a href="https://maps.app.goo.gl/1mbUaoKQ1h2NKRuYA" target="_blank" rel="noopener noreferrer" className="btn-outline">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                Lokasi Rumah Wanita
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* ===== Separator ===== */}
         {showPriaSection && (
@@ -93,42 +114,44 @@ export default function EventDetails() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "40px", marginBottom: "64px" }}>
               <EventCard title="Ngunduh Mantu" date="Minggu, 07 Juni 2026" time="07.00 — 10.00 WIB"
-                location="Rumah Mempelai Pria" address="Detail lokasi akan diinformasikan kemudian"
+                location="Rumah Mempelai Pria"
+                address="Desa Sukomulyo RT 02 RW 01 No. 53, Kec. Manyar, Kab. Gresik"
                 icon={IconHome} delay="delay-5" />
 
               {showPriaSiang && (
                 <EventCard title="Resepsi Siang" date="Minggu, 07 Juni 2026" time="11.00 — 14.00 WIB"
-                  location="Rumah Mempelai Pria" address="Detail lokasi akan diinformasikan kemudian"
+                  location="Rumah Mempelai Pria"
+                  address="Desa Sukomulyo RT 02 RW 01 No. 53, Kec. Manyar, Kab. Gresik"
                   icon={IconSun} delay="delay-6" />
               )}
 
               {showPriaMalam && (
                 <EventCard title="Resepsi Malam" date="Minggu, 07 Juni 2026" time="19.00 — 21.00 WIB"
-                  location="Rumah Mempelai Pria" address="Detail lokasi akan diinformasikan kemudian"
+                  location="Rumah Mempelai Pria"
+                  address="Desa Sukomulyo RT 02 RW 01 No. 53, Kec. Manyar, Kab. Gresik"
                   icon={IconMoon} delay="delay-7" />
               )}
             </div>
+
+            {/* Maps Pria */}
+            <div className="reveal-up delay-8" style={{ marginBottom: "0" }}>
+              <div className="glass rounded-3xl p-3 overflow-hidden" style={{ marginBottom: "24px" }}>
+                <iframe
+                  src="https://www.google.com/maps?q=-7.132183,112.614312&z=17&output=embed"
+                  width="100%" height="220" style={{ border: 0, borderRadius: "20px" }}
+                  allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <a href="https://maps.app.goo.gl/YcfguUPe84j3m24e9" target="_blank" rel="noopener noreferrer" className="btn-outline">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  Lokasi Rumah Pria
+                </a>
+              </div>
+            </div>
           </>
         )}
-
-        {/* Maps */}
-        <div className="reveal-up delay-8">
-          <div className="glass rounded-3xl p-3 overflow-hidden mb-8">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2!2d106.8!3d-6.25!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTUnMDAuMCJTIDEwNsKwNDgnMDAuMCJF!5e0!3m2!1sid!2sid!4v1234567890"
-              width="100%" height="240" style={{ border: 0, borderRadius: "20px" }}
-              allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-          <div className="text-center">
-            <a href="https://maps.google.com/?q=-6.25,106.8" target="_blank" rel="noopener noreferrer" className="btn-outline">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-              </svg>
-              Petunjuk Arah
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   );
