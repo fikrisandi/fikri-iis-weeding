@@ -12,12 +12,35 @@ export function useReveal() {
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
     );
 
-    const els = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale");
-    els.forEach((el) => observer.observe(el));
+    const selectors = ".reveal-up, .reveal-left, .reveal-right, .reveal-scale";
 
-    return () => observer.disconnect();
+    // Observe existing elements
+    const observe = () => {
+      document.querySelectorAll(selectors).forEach((el) => {
+        if (!el.classList.contains("visible")) {
+          observer.observe(el);
+        }
+      });
+    };
+
+    observe();
+
+    // MutationObserver to catch elements rendered later (e.g. inside Suspense)
+    const mutationObserver = new MutationObserver(() => {
+      observe();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 }
