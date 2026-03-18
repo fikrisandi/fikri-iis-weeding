@@ -47,16 +47,16 @@ body.no-scroll { overflow: hidden; }
 .grad-cover { background: linear-gradient(180deg, #031510 0%, #062A1F 40%, #0A3D2E 80%, #0D4A36 100%); }
 /* Couple: continues from hero bottom → deeper */
 .grad-main { background: linear-gradient(180deg, #0D4A36 0%, #0A3D2E 30%, #083526 60%, #062A1F 100%); }
-/* Countdown: lighter emerald center glow */
-.grad-alt { background: linear-gradient(180deg, #062A1F 0%, #0A3D2E 20%, #0F5540 45%, #0D4A36 55%, #0A3D2E 80%, #062A1F 100%); }
+/* Countdown: smooth emerald with subtle center warmth */
+.grad-alt { background: linear-gradient(180deg, #062A1F 0%, #083526 15%, #0A3D2E 30%, #0C4533 45%, #0D4A36 50%, #0C4533 55%, #0A3D2E 70%, #083526 85%, #062A1F 100%); }
 /* Event: back to deep */
 .grad-event { background: linear-gradient(180deg, #062A1F 0%, #083526 30%, #0A3D2E 60%, #0D4A36 100%); }
-/* Gallery: emerald with subtle warmth */
-.grad-gallery { background: linear-gradient(180deg, #0D4A36 0%, #0B4230 25%, #093D2B 50%, #073524 75%, #062A1F 100%); }
+/* Gallery: smooth dark emerald descent */
+.grad-gallery { background: linear-gradient(180deg, #0D4A36 0%, #0C4533 10%, #0B4230 25%, #0A3D2E 40%, #093D2B 55%, #083526 70%, #073524 85%, #062A1F 100%); }
 /* Gift: deep into dark */
 .grad-gift { background: linear-gradient(180deg, #062A1F 0%, #0A3D2E 40%, #083526 70%, #062A1F 100%); }
-/* RSVP: lighter center */
-.grad-rsvp { background: linear-gradient(180deg, #062A1F 0%, #0D4A36 35%, #0F5540 50%, #0D4A36 65%, #062A1F 100%); }
+/* RSVP: subtle center warmth */
+.grad-rsvp { background: linear-gradient(180deg, #062A1F 0%, #083526 15%, #0A3D2E 30%, #0C4533 45%, #0D4A36 50%, #0C4533 55%, #0A3D2E 70%, #083526 85%, #062A1F 100%); }
 /* Wishes: deep */
 .grad-wishes { background: linear-gradient(180deg, #062A1F 0%, #083526 40%, #0A3D2E 70%, #062A1F 100%); }
 /* Footer: darkest */
@@ -64,10 +64,11 @@ body.no-scroll { overflow: hidden; }
 
 /* ===== GLASS MORPHISM ===== */
 .glass {
-  background: var(--color-glass);
+  background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.06) 100%);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-glass-border);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 .glass-strong {
   background: var(--color-glass-strong);
@@ -76,10 +77,11 @@ body.no-scroll { overflow: hidden; }
   border-radius: 24px;
 }
 .glass-gold {
-  background: rgba(212,168,83,0.08);
+  background: linear-gradient(145deg, rgba(212,168,83,0.1) 0%, rgba(212,168,83,0.05) 50%, rgba(212,168,83,0.1) 100%);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212,168,83,0.15);
+  border: 1px solid rgba(212,168,83,0.18);
   border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(212,168,83,0.1);
 }
 
 /* ===== SECTION ===== */
@@ -199,6 +201,11 @@ body.no-scroll { overflow: hidden; }
 .input-field:focus { border-color: var(--color-gold-dark); box-shadow: 0 0 0 4px rgba(212,168,83,0.1); }
 
 /* ===== GEOMETRIC PATTERNS ===== */
+/* Geo pattern fades out at edges for natural look */
+.geo-pattern::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 30%, var(--color-emerald-deep) 80%);
+}
 .geo-pattern {
   background-image:
     linear-gradient(30deg, rgba(212,168,83,0.03) 12%, transparent 12.5%, transparent 87%, rgba(212,168,83,0.03) 87.5%),
