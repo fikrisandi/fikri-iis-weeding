@@ -124,7 +124,7 @@ export default function Cover({ onOpen }: { onOpen: () => void }) {
         <div style={{ opacity: ready ? 1 : 0, transition: "all 0.8s ease 1.3s" }}>
           <GoldDivider />
           <p style={{ fontFamily: "var(--font-display)", fontSize: "14px", color: "var(--color-text-light)", letterSpacing: "0.2em", fontWeight: 300, marginBottom: "40px" }}>
-            Sabtu, 06 Juni 2026
+            06 &mdash; 07 Juni 2026
           </p>
         </div>
 

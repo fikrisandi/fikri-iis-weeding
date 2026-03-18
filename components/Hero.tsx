@@ -47,7 +47,7 @@ export default function Hero() {
           <GoldDivider className="mb-10" />
           <p className="text-[var(--color-gold-light)]"
             style={{ fontFamily: "var(--font-display)", fontSize: "16px", fontWeight: 300, letterSpacing: "0.25em" }}>
-            Sabtu, 06 Juni 2026
+            06 &mdash; 07 Juni 2026
           </p>
         </div>
 
