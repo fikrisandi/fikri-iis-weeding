@@ -19,7 +19,7 @@ export default function RSVP() {
   };
 
   return (
-    <section id="rsvp" className="grad-alt relative overflow-hidden">
+    <section id="rsvp" className="grad-rsvp relative overflow-hidden">
       <Particles count={15} />
       <div className="absolute inset-0 geo-pattern" />
       <div className="section-inner relative z-10">

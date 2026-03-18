@@ -13,7 +13,7 @@ const bl: Record<string,string> = { hadir: "Hadir", tidak_hadir: "Tidak Hadir", 
 
 export default function Wishes() {
   return (
-    <section id="wishes" className="grad-main relative overflow-hidden geo-pattern">
+    <section id="wishes" className="grad-wishes relative overflow-hidden geo-pattern">
       <Particles count={15} />
       <div className="section-inner">
         <div className="text-center mb-14 reveal-up">

@@ -42,10 +42,25 @@ body.no-scroll { overflow: hidden; }
 ::-webkit-scrollbar-track { background: var(--color-emerald-deep); }
 ::-webkit-scrollbar-thumb { background: var(--color-gold-dark); border-radius: 8px; }
 
-/* ===== GRADIENTS ===== */
-.grad-main { background: linear-gradient(170deg, #062A1F 0%, #0A3D2E 30%, #0D4A36 50%, #0A3D2E 70%, #062A1F 100%); }
-.grad-alt { background: linear-gradient(170deg, #0D4A36 0%, #0A3D2E 50%, #083526 100%); }
-.grad-cover { background: linear-gradient(160deg, #041E16 0%, #0A3D2E 40%, #083526 70%, #041E16 100%); }
+/* ===== GRADIENTS - natural flow top→bottom ===== */
+/* Hero: deep dark → emerald */
+.grad-cover { background: linear-gradient(180deg, #031510 0%, #062A1F 40%, #0A3D2E 80%, #0D4A36 100%); }
+/* Couple: continues from hero bottom → deeper */
+.grad-main { background: linear-gradient(180deg, #0D4A36 0%, #0A3D2E 30%, #083526 60%, #062A1F 100%); }
+/* Countdown: lighter emerald center glow */
+.grad-alt { background: linear-gradient(180deg, #062A1F 0%, #0A3D2E 20%, #0F5540 45%, #0D4A36 55%, #0A3D2E 80%, #062A1F 100%); }
+/* Event: back to deep */
+.grad-event { background: linear-gradient(180deg, #062A1F 0%, #083526 30%, #0A3D2E 60%, #0D4A36 100%); }
+/* Gallery: emerald with subtle warmth */
+.grad-gallery { background: linear-gradient(180deg, #0D4A36 0%, #0B4230 25%, #093D2B 50%, #073524 75%, #062A1F 100%); }
+/* Gift: deep into dark */
+.grad-gift { background: linear-gradient(180deg, #062A1F 0%, #0A3D2E 40%, #083526 70%, #062A1F 100%); }
+/* RSVP: lighter center */
+.grad-rsvp { background: linear-gradient(180deg, #062A1F 0%, #0D4A36 35%, #0F5540 50%, #0D4A36 65%, #062A1F 100%); }
+/* Wishes: deep */
+.grad-wishes { background: linear-gradient(180deg, #062A1F 0%, #083526 40%, #0A3D2E 70%, #062A1F 100%); }
+/* Footer: darkest */
+.grad-footer { background: linear-gradient(180deg, #062A1F 0%, #041E16 50%, #031510 100%); }
 
 /* ===== GLASS MORPHISM ===== */
 .glass {

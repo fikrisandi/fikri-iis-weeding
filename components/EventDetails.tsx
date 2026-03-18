@@ -40,7 +40,7 @@ export default function EventDetails() {
   const showPriaSection = !acara || acara === "pria" || acara === "pria-siang" || acara === "pria-malam";
 
   return (
-    <section id="event" className="grad-main relative overflow-hidden geo-pattern">
+    <section id="event" className="grad-event relative overflow-hidden geo-pattern">
       <Particles count={18} />
       <div style={{ maxWidth: "640px", margin: "0 auto", padding: "140px 32px", position: "relative", zIndex: 2 }}>
         {/* Header */}

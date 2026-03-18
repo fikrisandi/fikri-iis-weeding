@@ -19,7 +19,7 @@ export default function Gallery() {
   const [sel, setSel] = useState<number | null>(null);
 
   return (
-    <section id="gallery" className="grad-alt relative overflow-hidden">
+    <section id="gallery" className="grad-gallery relative overflow-hidden">
       <Particles count={20} />
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "140px 32px", position: "relative", zIndex: 2 }}>
         <div className="reveal-up" style={{ textAlign: "center", marginBottom: "64px" }}>

@@ -26,7 +26,7 @@ function BankCard({ bank, number, name }: { bank: string; number: string; name: 
 
 export default function Gift() {
   return (
-    <section id="gift" className="grad-main relative overflow-hidden geo-pattern particles-gold">
+    <section id="gift" className="grad-gift relative overflow-hidden geo-pattern">
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "140px 32px" }}>
         <div className="reveal-up" style={{ textAlign: "center", marginBottom: "64px" }}>
           <p className="text-[var(--color-gold-dark)]" style={{ letterSpacing: "0.5em", textTransform: "uppercase" as const, fontSize: "9px", fontWeight: 500, marginBottom: "24px" }}>Wedding Gift</p>

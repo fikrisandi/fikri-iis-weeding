@@ -15,7 +15,7 @@ export default function Countdown() {
   const blocks = [{ v: t.d, l: "Hari" }, { v: t.h, l: "Jam" }, { v: t.m, l: "Menit" }, { v: t.s, l: "Detik" }];
 
   return (
-    <section className="grad-alt relative overflow-hidden particles-gold">
+    <section className="grad-alt relative overflow-hidden">
       <div className="absolute inset-0 geo-pattern" />
       <div style={{ maxWidth: "640px", margin: "0 auto", padding: "140px 32px", textAlign: "center", position: "relative", zIndex: 10 }}>
 
