@@ -1,25 +1,36 @@
+"use client";
+
+import { useState } from "react";
+import Cover from "../components/Cover";
 import Hero from "../components/Hero";
 import Couple from "../components/Couple";
 import Countdown from "../components/Countdown";
 import EventDetails from "../components/EventDetails";
 import Gallery from "../components/Gallery";
+import Gift from "../components/Gift";
 import RSVP from "../components/RSVP";
 import Wishes from "../components/Wishes";
 import MusicPlayer from "../components/MusicPlayer";
 import Footer from "../components/Footer";
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <main>
-      <Hero />
-      <Couple />
-      <Countdown />
-      <EventDetails />
-      <Gallery />
-      <RSVP />
-      <Wishes />
-      <Footer />
-      <MusicPlayer />
-    </main>
+    <>
+      {!isOpen && <Cover onOpen={() => setIsOpen(true)} />}
+      <main>
+        <Hero />
+        <Couple />
+        <Countdown />
+        <EventDetails />
+        <Gallery />
+        <Gift />
+        <RSVP />
+        <Wishes />
+        <Footer />
+      </main>
+      {isOpen && <MusicPlayer autoPlay />}
+    </>
   );
 }

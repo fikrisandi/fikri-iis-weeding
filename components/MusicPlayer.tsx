@@ -1,48 +1,75 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
 
-export default function MusicPlayer() {
+interface MusicPlayerProps {
+  autoPlay?: boolean;
+}
+
+export default function MusicPlayer({ autoPlay = false }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const hasStarted = useRef(false);
+
+  const startMusic = () => {
+    if (!audioRef.current) return;
+    audioRef.current.play().then(() => {
+      setIsPlaying(true);
+      hasStarted.current = true;
+    }).catch(() => {});
+  };
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
       audioRef.current.pause();
+      setIsPlaying(false);
     } else {
-      audioRef.current.play();
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
-    setIsPlaying(!isPlaying);
   };
+
+  // Auto-play when cover is opened
+  if (autoPlay && !hasStarted.current) {
+    setTimeout(startMusic, 500);
+  }
 
   return (
     <>
-      {/* Ganti src dengan file musik Anda (taruh di folder public/) */}
-      <audio ref={audioRef} loop preload="none">
+      <audio ref={audioRef} loop preload="auto">
         <source src="/music/background.mp3" type="audio/mpeg" />
       </audio>
 
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 2, type: "spring" }}
+      <button
         onClick={toggleMusic}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[var(--color-gold)] text-white shadow-lg flex items-center justify-center hover:bg-[var(--color-primary-dark)] transition-colors duration-300"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[var(--color-primary-dark)] shadow-xl flex items-center justify-center border-2 border-[var(--color-gold)]/50 hover:border-[var(--color-gold)] transition-all duration-300 group"
         aria-label={isPlaying ? "Pause music" : "Play music"}
       >
-        {isPlaying ? (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <rect x="6" y="4" width="4" height="16" />
-            <rect x="14" y="4" width="4" height="16" />
-          </svg>
-        ) : (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5,3 19,12 5,21" />
-          </svg>
+        {/* Rotating disc effect */}
+        <div className={`absolute inset-[3px] rounded-full border border-[var(--color-gold)]/20 ${isPlaying ? "disc-spin" : "disc-paused"}`}>
+          <div className="absolute top-1 left-1/2 w-1 h-1 rounded-full bg-[var(--color-gold)]/40 -translate-x-1/2" />
+          <div className="absolute bottom-2 left-1/2 w-0.5 h-0.5 rounded-full bg-[var(--color-gold)]/30 -translate-x-1/2" />
+        </div>
+
+        {/* Icon */}
+        <div className="relative z-10">
+          {isPlaying ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-gold-light)">
+              <rect x="6" y="4" width="4" height="16" rx="1" />
+              <rect x="14" y="4" width="4" height="16" rx="1" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-gold-light)">
+              <polygon points="6,3 20,12 6,21" />
+            </svg>
+          )}
+        </div>
+
+        {/* Pulse ring when playing */}
+        {isPlaying && (
+          <div className="absolute inset-0 rounded-full border border-[var(--color-gold)] animate-ping opacity-20" />
         )}
-      </motion.button>
+      </button>
     </>
   );
 }
