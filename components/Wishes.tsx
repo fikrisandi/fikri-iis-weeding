@@ -1,17 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { GoldDivider } from "./FloralOrnament";
 import Particles from "./Particles";
 
-const wishes = [
-  { name: "Budi Santoso", msg: "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Barakallahu lakuma!", date: "10 Jun", badge: "hadir" },
-  { name: "Siti Rahayu", msg: "Barakallahu lakuma wa baraka 'alaikuma. Selamat menempuh hidup baru!", date: "09 Jun", badge: "hadir" },
-  { name: "Andi Pratama", msg: "Semoga Allah memberkahi pernikahan kalian. Bahagia selalu dunia akhirat.", date: "08 Jun", badge: "mungkin" },
-];
-const bc: Record<string,string> = { hadir: "#4A9E6B", tidak_hadir: "#D44", mungkin: "#D4A853" };
-const bl: Record<string,string> = { hadir: "Hadir", tidak_hadir: "Tidak Hadir", mungkin: "Ragu" };
+interface Wish {
+  name: string;
+  msg: string;
+  date: string;
+  badge: string;
+}
+
+const bc: Record<string, string> = { hadir: "#4A9E6B", tidak_hadir: "#D44", mungkin: "#D4A853" };
+const bl: Record<string, string> = { hadir: "Hadir", tidak_hadir: "Tidak Hadir", mungkin: "Ragu" };
+const PER_PAGE = 5;
 
 export default function Wishes() {
+  const [wishes, setWishes] = useState<Wish[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
+    if (!url) { setLoading(false); return; }
+    fetch(`${url}?action=wishes`)
+      .then(r => r.json())
+      .then((data: Wish[]) => { setWishes(data); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const totalPages = Math.max(1, Math.ceil(wishes.length / PER_PAGE));
+  const visible = wishes.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
+
   return (
     <section id="wishes" className="grad-wishes relative overflow-hidden geo-pattern">
       <Particles count={15} />
@@ -27,28 +47,77 @@ export default function Wishes() {
         </div>
 
         {/* Wishes list */}
-        <div style={{ maxWidth: "480px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px", maxHeight: "500px", overflowY: "auto", paddingRight: "4px" }}>
-          {wishes.map((w, i) => (
-            <div key={i} className={`glass rounded-2xl reveal-up delay-${i+1}`} style={{ padding: "24px 28px" }}>
+        <div style={{ maxWidth: "480px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px" }}>
+          {loading && (
+            <p style={{ textAlign: "center", color: "var(--color-text-muted)", fontSize: "12px" }}>Memuat ucapan...</p>
+          )}
+
+          {!loading && wishes.length === 0 && (
+            <p style={{ textAlign: "center", color: "var(--color-text-muted)", fontSize: "12px", lineHeight: 2 }}>
+              Belum ada ucapan. Jadilah yang pertama!
+            </p>
+          )}
+
+          {visible.map((w, i) => (
+            <div key={`${w.name}-${i}`} className="glass rounded-2xl" style={{ padding: "24px 28px", animation: "fade-in 0.4s ease" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
                 <div style={{
                   width: "36px", height: "36px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
                   color: "var(--color-emerald-deep)", fontSize: "13px", fontWeight: 500, fontFamily: "var(--font-display)",
                   background: "linear-gradient(135deg, var(--color-gold), var(--color-gold-dark))", flexShrink: 0,
                 }}>
-                  {w.name.charAt(0)}
+                  {w.name.charAt(0).toUpperCase()}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <h4 style={{ color: "var(--color-cream)", fontSize: "13px", fontWeight: 500, fontFamily: "var(--font-display)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{w.name}</h4>
-                    <span style={{ flexShrink: 0, fontSize: "7px", letterSpacing: "0.1em", textTransform: "uppercase", padding: "2px 8px", borderRadius: "20px", color: "white", fontWeight: 500, background: bc[w.badge] }}>{bl[w.badge]}</span>
+                    {w.badge && bc[w.badge] && (
+                      <span style={{ flexShrink: 0, fontSize: "7px", letterSpacing: "0.1em", textTransform: "uppercase", padding: "2px 8px", borderRadius: "20px", color: "white", fontWeight: 500, background: bc[w.badge] }}>{bl[w.badge]}</span>
+                    )}
                   </div>
                   <span style={{ color: "var(--color-text-dim)", fontSize: "10px" }}>{w.date}</span>
                 </div>
               </div>
-              <p style={{ color: "var(--color-text-light)", fontSize: "12px", lineHeight: 1.9, paddingLeft: "48px" }}>{w.msg}</p>
+              {w.msg && (
+                <p style={{ color: "var(--color-text-light)", fontSize: "12px", lineHeight: 1.9, paddingLeft: "48px" }}>{w.msg}</p>
+              )}
             </div>
           ))}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginTop: "16px" }}>
+              <button
+                onClick={() => setPage(p => Math.max(0, p - 1))}
+                disabled={page === 0}
+                style={{
+                  width: "36px", height: "36px", borderRadius: "50%", border: "1px solid rgba(212,168,83,0.3)",
+                  background: "transparent", color: page === 0 ? "var(--color-text-dim)" : "var(--color-gold-light)",
+                  cursor: page === 0 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                  transition: "all 0.3s",
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "12px", color: "var(--color-text-muted)", letterSpacing: "0.1em" }}>
+                {page + 1} / {totalPages}
+              </span>
+
+              <button
+                onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+                disabled={page === totalPages - 1}
+                style={{
+                  width: "36px", height: "36px", borderRadius: "50%", border: "1px solid rgba(212,168,83,0.3)",
+                  background: "transparent", color: page === totalPages - 1 ? "var(--color-text-dim)" : "var(--color-gold-light)",
+                  cursor: page === totalPages - 1 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                  transition: "all 0.3s",
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
