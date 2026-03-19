@@ -25,7 +25,7 @@ export default function InvitationPage({ params }: { params: Promise<{ to: strin
       {!isOpen && <Cover onOpen={() => setIsOpen(true)} guestName={guestName} />}
       <main>
         <Hero />
-        <Couple />
+        <Couple guestName={guestName} />
         <Countdown />
         <Suspense>
           <EventDetails />

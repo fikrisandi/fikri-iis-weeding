@@ -25,7 +25,7 @@ function PersonCard({ name, fullName, parents, photoLabel }: {
   );
 }
 
-export default function Couple() {
+export default function Couple({ guestName }: { guestName?: string } = {}) {
   return (
     <section id="couple" className="grad-main relative overflow-hidden geo-pattern">
       <Particles count={20} />
@@ -44,7 +44,7 @@ export default function Couple() {
           <p className="text-[var(--color-text-light)]"
             style={{ fontFamily: "var(--font-display)", fontSize: "15px", fontWeight: 300, lineHeight: 2.2, maxWidth: "440px", margin: "0 auto", textAlign: "center" }}>
             Dengan memohon rahmat dan ridho Allah Subhanahu wa Ta&apos;ala,
-            kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami:
+            kami bermaksud mengundang {guestName ? (<><br/><span style={{ fontFamily: "var(--font-display)", fontWeight: 600, color: "var(--color-cream)", fontSize: "17px" }}>{guestName}</span><br/></>) : "Bapak/Ibu/Saudara/i "}untuk menghadiri pernikahan kami:
           </p>
         </div>
 
