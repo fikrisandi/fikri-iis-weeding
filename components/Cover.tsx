@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { LeafOrnamentTop, GoldDivider } from "./FloralOrnament";
 
-export default function Cover({ onOpen }: { onOpen: () => void }) {
+export default function Cover({ onOpen, guestName }: { onOpen: () => void; guestName?: string }) {
   const [ready, setReady] = useState(false);
   const [exiting, setExiting] = useState(false);
 
@@ -127,6 +127,17 @@ export default function Cover({ onOpen }: { onOpen: () => void }) {
             06 &mdash; 07 Juni 2026
           </p>
         </div>
+
+        {guestName && (
+          <div style={{ opacity: ready ? 1 : 0, transform: ready ? "none" : "translateY(10px)", transition: "all 0.8s ease 1.5s", marginBottom: "32px" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "10px", letterSpacing: "0.4em", textTransform: "uppercase" as const, color: "var(--color-text-muted)", marginBottom: "8px" }}>
+              Kepada Yth.
+            </p>
+            <p style={{ fontFamily: "var(--font-display)", fontSize: "18px", fontWeight: 500, color: "var(--color-cream)", letterSpacing: "0.05em" }}>
+              {guestName}
+            </p>
+          </div>
+        )}
 
         <div style={{ opacity: ready ? 1 : 0, transform: ready ? "none" : "translateY(20px)", transition: "all 0.8s ease 1.8s" }}>
           <button onClick={handleOpen} className="btn-gold pulse-glow">
